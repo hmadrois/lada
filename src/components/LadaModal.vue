@@ -45,7 +45,7 @@ function itemSubmit(){
 
     addItem(
     { 'title': itemTitle.value
-    , 'date': itemDate.value
+    , 'date': itemDate.value.toDateString()
     })
 
 }

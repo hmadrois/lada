@@ -8,7 +8,7 @@
 
 <script setup>
 
-import { provide, reactive, ref } from 'vue';
+import { onMounted, provide, reactive, ref } from 'vue';
 
 import LadaHeader from './components/LadaHeader.vue';
 import LadaList from './components/LadaList.vue'
@@ -19,9 +19,14 @@ const items = reactive([])
 
 provide('dialogActive', dialogActive)
 
+onMounted(() => {
+    let localItems = localStorage.getItem('items')
+    if (localItems != []) Object.assign(items, JSON.parse(localItems))
+})
+
 function addItem(item){
     items.push(item)
-    console.log(items)
+    localStorage.setItem('items', JSON.stringify(items))
 }
 
 </script>
