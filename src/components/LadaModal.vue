@@ -1,5 +1,5 @@
 <template>
-    <Dialog v-model:visible="dialogActive" modal header="Isi Data">
+    <Dialog v-model:visible="dialogActive" modal header="Tambah">
         <div class="dialog">
             <InputGroup>
                 <InputGroupAddon>
@@ -23,9 +23,9 @@
 import { inject, ref } from 'vue';
 
 const dialogActive = inject('dialogActive')
+const { addItem } = defineProps(['addItem'])
 
 const titleInvalid = ref(false)
-
 const itemTitle = ref('')
 const itemDate = ref(getTomorrow())
 
@@ -42,6 +42,12 @@ function itemSubmit(){
     }
     titleInvalid.value = false
     dialogActive.value = false
+
+    addItem(
+    { 'title': itemTitle.value
+    , 'date': itemDate.value
+    })
+
 }
 
 </script>

@@ -20,7 +20,8 @@ const dialogActive = inject('dialogActive')
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
-    align-items:stretch;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
 }
 
 .select {
