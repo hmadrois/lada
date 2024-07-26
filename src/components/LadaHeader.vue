@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <Select v-model="selectedOption" :options="['Mendatang', 'Lampau']" class="select"></Select>
-        <Button v-on:click="dialogActive = true" label="+" class="square"></Button>
+        <Button v-on:click="showDialog" label="+" class="btn"></Button>
     </div>
 </template>
 
@@ -10,7 +10,12 @@
 import { inject, ref } from 'vue';
 
 const selectedOption = ref('Mendatang')
-const dialogActive = inject('dialogActive')
+const dialog = inject('dialog')
+
+function showDialog() { 
+    dialog.id = -1
+    dialog.active = true
+}
 
 </script>
 
@@ -30,7 +35,7 @@ const dialogActive = inject('dialogActive')
     flex-grow: 1;
 }
 
-.square {
+.btn {
     width: 48px;
     height: 48px;
 }

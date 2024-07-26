@@ -1,5 +1,5 @@
 <template>
-    <Dialog v-model:visible="dialogActive" modal header="Tambah">
+    <Dialog v-model:visible="dialog.active" modal :header="dialog.id > -1 ? 'Edit' : 'Tambah'">
         <div class="dialog">
             <InputGroup>
                 <InputGroupAddon>
@@ -20,14 +20,27 @@
 
 <script setup>
 
-import { inject, ref } from 'vue';
+import { inject, ref, watch } from 'vue';
 
-const dialogActive = inject('dialogActive')
-const { addItem } = defineProps(['addItem'])
+const dialog = inject('dialog')
+const { addItem, getItem } = defineProps(['addItem', 'getItem'])
 
 const titleInvalid = ref(false)
 const itemTitle = ref('')
 const itemDate = ref(getTomorrow())
+
+watch(dialog, () => {
+    if (dialog.active == false) return
+    if (dialog.id > -1){
+        let item = getItem(dialog.id)
+        itemTitle.value = item.title
+        itemDate.value = new Date(item.date)
+    } 
+    else {
+        itemTitle.value = '',
+        itemDate.value = getTomorrow()
+    }
+})
 
 function getTomorrow(){
     const tomorrow = new Date()
@@ -40,13 +53,18 @@ function itemSubmit(){
         titleInvalid.value = true
         return
     }
-    titleInvalid.value = false
-    dialogActive.value = false
 
-    addItem(
-    { 'title': itemTitle.value
-    , 'date': itemDate.value.toDateString()
-    })
+    titleInvalid.value = false
+    dialog.active = false
+
+    let item = {
+        'title': itemTitle.value,
+        'date': itemDate.value.toDateString()
+    }
+
+    if (dialog.id > -1) item['id'] = dialog.id
+
+    addItem(item)
 
 }
 
