@@ -19,6 +19,38 @@ function isToday(date){
     return (date == today)
 }
 
+function SplitButtonModel(index){
+    return [
+        { 
+            label: 'Edit', 
+            icon: 'pi pi-pencil', 
+            command: () => { 
+                dialog.id = index
+                dialog.active = true 
+            }
+        },
+
+        {
+            label: 'Delete',
+            icon: 'pi pi-trash',
+            command: () => confirm.require({
+                message: 'Hapus item terpilih?',
+                header: 'Konfirmasi Penghapusan',
+                rejectProps: {
+                    label: 'Batal',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Hapus',
+                    severity: 'danger'
+                },
+                accept: () => deleteItem(index)
+            })
+        },
+    ]
+}
+
 </script>
 
 <template>
@@ -33,36 +65,7 @@ function isToday(date){
             <template #footer>
                 <div class="row end">
                     <SplitButton 
-                        :model="[
-                            {
-                                label: 'Edit',
-                                icon: 'pi pi-pencil',
-                                command: () => { dialog.id = index; dialog.active = true }
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-trash',
-                                command: () => confirm.require({
-                                    message: 'Hapus item terpilih?',
-                                    header: 'Konfirmasi Penghapusan',
-                                    rejectProps: {
-                                        label: 'Batal',
-                                        severity: 'secondary',
-                                        outlined: true
-                                    },
-                                    acceptProps: {
-                                        label: 'Hapus',
-                                        severity: 'danger'
-                                    },
-                                    accept: () => deleteItem(index)
-                                })
-                            },
-                            {
-                                label: 'Share',
-                                icon: 'pi pi-share-alt',
-                                command: () => {}
-                            }
-                        ]"
+                        :model="SplitButtonModel(index)"
                         :label="isToday(item.date) ? 'Saya Ingat!' : 'Akan Datang'" 
                         :severity="isToday(item.date) ? 'success' : 'warn'" ></SplitButton>
                 </div>
