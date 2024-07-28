@@ -1,8 +1,7 @@
 <script setup>
 
 import { inject, ref, watch } from 'vue';
-
-const props = defineProps(['addItem', 'getItem'])
+import { addItem, getItem } from '@/items';
 
 const dialog = inject('dialog')
 const titleInvalid = ref(false)
@@ -12,7 +11,7 @@ const itemDate = ref(getTomorrow())
 watch(dialog, () => {
     if (dialog.active == false) return
     if (dialog.id > -1){
-        let item = props.getItem(dialog.id)
+        let item = getItem(dialog.id)
         itemTitle.value = item.title
         itemDate.value = new Date(item.date)
     } 
@@ -44,7 +43,7 @@ function itemSubmit(){
 
     if (dialog.id > -1) item['id'] = dialog.id
 
-    props.addItem(item)
+    addItem(item)
 
 }
 

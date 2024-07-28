@@ -2,9 +2,9 @@
 
 import { inject } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
+import { items, deleteItem } from '@/items';
 
 const confirm = useConfirm()
-const props = defineProps(['items', 'deleteItem'])
 const dialog = inject('dialog')
 
 const rules = {
@@ -23,7 +23,7 @@ function isToday(date){
 
 <template>
     <div class="container">
-        <Card v-for="(item, index) in props.items">
+        <Card v-for="(item, index) in items">
             <template #content>
                 <div class="row" style="justify-content: space-between;">
                     <p>{{ item.title }}</p>
@@ -37,7 +37,7 @@ function isToday(date){
                             {
                                 label: 'Edit',
                                 icon: 'pi pi-pencil',
-                                command: () => { dialog.id = index; dialog.active = true; }
+                                command: () => { dialog.id = index; dialog.active = true }
                             },
                             {
                                 label: 'Delete',
