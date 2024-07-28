@@ -1,10 +1,3 @@
-<template>
-    <div class="flex">
-        <Select v-model="selectedOption" :options="['Mendatang', 'Lampau']" class="select"></Select>
-        <Button v-on:click="showDialog" label="+" class="btn"></Button>
-    </div>
-</template>
-
 <script setup>
 
 import { inject, ref } from 'vue';
@@ -18,6 +11,14 @@ function showDialog() {
 }
 
 </script>
+
+<template>
+    <div class="flex">
+        <Select v-model="selectedOption" :options="['Mendatang', 'Lampau']" class="select"></Select>
+        <Button v-on:click="showDialog" label="+" class="btn"></Button>
+    </div>
+</template>
+
 
 <style scoped>
 

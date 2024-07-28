@@ -1,6 +1,29 @@
+<script setup>
+
+import { inject } from 'vue'
+import { useConfirm } from 'primevue/useconfirm'
+
+const confirm = useConfirm()
+const props = defineProps(['items', 'deleteItem'])
+const dialog = inject('dialog')
+
+const rules = {
+    weekday: 'long',
+    year: 'numeric',
+    day: 'numeric',
+    month: 'long'
+}
+
+function isToday(date){
+    const today = new Date().toDateString()
+    return (date == today)
+}
+
+</script>
+
 <template>
     <div class="container">
-        <Card v-for="(item, index) in items">
+        <Card v-for="(item, index) in props.items">
             <template #content>
                 <div class="row" style="justify-content: space-between;">
                     <p>{{ item.title }}</p>
@@ -19,7 +42,20 @@
                             {
                                 label: 'Delete',
                                 icon: 'pi pi-trash',
-                                command: () => {}
+                                command: () => confirm.require({
+                                    message: 'Hapus item terpilih?',
+                                    header: 'Konfirmasi Penghapusan',
+                                    rejectProps: {
+                                        label: 'Batal',
+                                        severity: 'secondary',
+                                        outlined: true
+                                    },
+                                    acceptProps: {
+                                        label: 'Hapus',
+                                        severity: 'danger'
+                                    },
+                                    accept: () => deleteItem(index)
+                                })
                             },
                             {
                                 label: 'Share',
@@ -35,26 +71,6 @@
     </div>
 </template>
 
-<script setup>
-import { inject, ref } from 'vue';
-
-const { items } = defineProps(['items'])
-const dialog = inject('dialog')
-
-const rules = {
-    weekday: 'long',
-    year: 'numeric',
-    day: 'numeric',
-    month: 'long'
-}
-
-function isToday(date){
-    const today = new Date().toDateString()
-    if (date == today) return true
-    return false
-}
-
-</script>
 
 <style scoped>
 

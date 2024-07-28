@@ -1,30 +1,10 @@
-<template>
-    <Dialog v-model:visible="dialog.active" modal :header="dialog.id > -1 ? 'Edit' : 'Tambah'">
-        <div class="dialog">
-            <InputGroup>
-                <InputGroupAddon>
-                    <i class="pi pi-pencil"></i>
-                </InputGroupAddon>
-                <InputText v-model="itemTitle" placeholder="Judul" :invalid="titleInvalid" />
-            </InputGroup>
-            <InputGroup>
-                <InputGroupAddon>
-                    <i class="pi pi-calendar"></i>
-                </InputGroupAddon>
-                <DatePicker v-model="itemDate" :min-date="getTomorrow()" date-format="DD, dd MM yy" placeholder="Tanggal" />
-            </InputGroup>
-            <Button label="Press" v-on:click="itemSubmit"></Button>
-        </div>
-    </Dialog>
-</template>
-
 <script setup>
 
 import { inject, ref, watch } from 'vue';
 
-const dialog = inject('dialog')
-const { addItem, getItem } = defineProps(['addItem', 'getItem'])
+const props = defineProps(['addItem', 'getItem'])
 
+const dialog = inject('dialog')
 const titleInvalid = ref(false)
 const itemTitle = ref('')
 const itemDate = ref(getTomorrow())
@@ -32,7 +12,7 @@ const itemDate = ref(getTomorrow())
 watch(dialog, () => {
     if (dialog.active == false) return
     if (dialog.id > -1){
-        let item = getItem(dialog.id)
+        let item = props.getItem(dialog.id)
         itemTitle.value = item.title
         itemDate.value = new Date(item.date)
     } 
@@ -64,11 +44,32 @@ function itemSubmit(){
 
     if (dialog.id > -1) item['id'] = dialog.id
 
-    addItem(item)
+    props.addItem(item)
 
 }
 
 </script>
+
+<template>
+    <Dialog v-model:visible="dialog.active" modal :header="dialog.id > -1 ? 'Edit' : 'Tambah'">
+        <div class="dialog">
+            <InputGroup>
+                <InputGroupAddon>
+                    <i class="pi pi-pencil"></i>
+                </InputGroupAddon>
+                <InputText v-model="itemTitle" placeholder="Judul" :invalid="titleInvalid" />
+            </InputGroup>
+            <InputGroup>
+                <InputGroupAddon>
+                    <i class="pi pi-calendar"></i>
+                </InputGroupAddon>
+                <DatePicker v-model="itemDate" :min-date="getTomorrow()" date-format="DD, dd MM yy" placeholder="Tanggal" />
+            </InputGroup>
+            <Button label="Press" v-on:click="itemSubmit"></Button>
+        </div>
+    </Dialog>
+</template>
+
 
 <style scoped>
 
