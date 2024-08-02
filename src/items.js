@@ -1,15 +1,9 @@
 import { reactive, watch } from 'vue'
 
-let init = false
-
 const items = reactive([])
 
 // Update
 watch(items, () => {
-    if (!init){
-        init = true
-        return
-    }
     localStorage.setItem('items', JSON.stringify(items))
 })
 

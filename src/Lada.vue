@@ -17,6 +17,9 @@ provide('dialog', dialog)
 onMounted(() => {
     let localItems = localStorage.getItem('items')
     if (localItems != []) Object.assign(items, JSON.parse(localItems))
+
+    Notification.requestPermission().then(res => {
+    })
 })
 
 </script>
