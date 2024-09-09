@@ -1,6 +1,7 @@
 <script setup>
+import { inject } from 'vue';
 
-const props = defineProps(['item', 'deleteItem', 'id'])
+const props = defineProps(['item', 'id', 'deleteItem'])
 
 </script>
 
