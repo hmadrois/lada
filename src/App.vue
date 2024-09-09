@@ -12,3 +12,15 @@ provide('selectedNim', selectedNim)
     <ListView v-if="selectedNim" />
     <NimView v-else />
 </template>
+
+<style>
+@font-face {
+    font-family: 'SUSE';
+    src: url('/SUSE.ttf');
+}
+
+:root {
+    --bulma-body-family: 'SUSE'
+}
+
+</style>

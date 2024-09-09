@@ -39,12 +39,12 @@ function getRawResult(){
 }
 
 function getResult(){
-    var result = "Yang belum masuk di LDKM:"
+    var result = "Yang belum terinput dalam LDKM:"
     getRawResult().forEach(item => {
         result += "\n - " + item.nama
     })
 
-    console.log(result)
+    return result
 }
 
 export { data, refresh, getMahasiswa, deleteItem, addItem, getResult, getRawResult }

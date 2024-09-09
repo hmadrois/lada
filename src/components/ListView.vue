@@ -6,9 +6,13 @@ import { data, refresh, deleteItem, getMahasiswa, getResult } from '@/utilities/
 
 import ListItem from './ListItem.vue';
 import ListSearch from './ListSearch.vue';
+import ResultView from './ResultView.vue';
 
 const searchValue = ref('')
 provide('searchValue', searchValue)
+
+const resultActive = ref(false)
+provide('resultActive', resultActive)
 
 onMounted(() => {
     refresh()
@@ -29,10 +33,11 @@ onMounted(() => {
                     :deleteItem="deleteItem" />
             </div>
             <div style="padding: 1rem;">
-                <button v-on:click="getResult" class="button is-white listview-btn">Lihat Hasil</button>
+                <button v-on:click="resultActive = true" class="button is-white listview-btn">Lihat Hasil</button>
             </div>
         </div>
         <ListSearch v-else :searchValue="searchValue" />
+        <ResultView v-if="resultActive" />
     </div>
 </template>
 
