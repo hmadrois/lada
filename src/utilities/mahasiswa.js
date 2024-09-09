@@ -8,7 +8,6 @@ function refresh(){
     getTransaksi().then(res => {
         data.length = 0
         Object.assign(data, res)
-        console.log(res)
     })
 }
 
@@ -39,10 +38,15 @@ function getRawResult(){
 }
 
 function getResult(){
-    var result = "Yang belum terinput dalam LDKM:"
-    getRawResult().forEach(item => {
-        result += "\n - " + item.nama
+    var result = "Yang belum terinput dalam LDKM: \n"
+    const rawResult = getRawResult()
+    rawResult.forEach(item => {
+        result += "\n - (" + item.NIM.slice(-2) + ") " + item.nama
     })
+
+    
+    result += "\n\n Total Belum: " + rawResult.length
+    result += "\n Total Sudah: " + (86 - rawResult.length)
 
     return result
 }
