@@ -35,7 +35,6 @@ function handleButton(nim){
     <div class="search-container">
         <div v-for="item in mahasiswaTercari" class="item-container">
             <p>{{ item.nama }}</p>
-            {{ item.NIM }}
             <button 
                 class="button is-primary"
                 :class="buttonFocused == item.NIM ? '' : 'is-outlined'"
