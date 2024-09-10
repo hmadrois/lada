@@ -1,10 +1,11 @@
 <script setup>
 
 import { getRawResult, addItem } from '@/utilities/mahasiswa';
-import { inject, onMounted, reactive, watch } from 'vue';
+import { inject, onMounted, reactive, ref, watch } from 'vue';
 
 const searchValue = inject('searchValue')
 const mahasiswaTercari = reactive([])
+const buttonFocused = ref(false)
 
 watch(searchValue, newValue => {
     filterMahasiswa()
@@ -34,7 +35,13 @@ function handleButton(nim){
     <div class="search-container">
         <div v-for="item in mahasiswaTercari" class="item-container">
             <p>{{ item.nama }}</p>
-            <button class="button is-primary is-outlined" @click="handleButton(item.NIM)">+</button>
+            {{ item.NIM }}
+            <button 
+                class="button is-primary"
+                :class="buttonFocused == item.NIM ? '' : 'is-outlined'"
+                @focusin="buttonFocused = item.NIM" 
+                @focusout="buttonFocused = ''"
+                @click="handleButton(item.NIM)">+</button>
         </div>
     </div>
 </template>

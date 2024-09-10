@@ -17,7 +17,6 @@ async function insertTransaksi(nimKorban){
 
 async function deleteTransaksi(id){
     const query = `${useDB} DELETE FROM transaksi WHERE id=${id}`
-    console.log(query)
     return await db.sql(query)
 }
 

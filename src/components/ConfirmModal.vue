@@ -37,11 +37,6 @@ onMounted(() => getNamaFromId())
     left: 0;
 }
 
-.confirm-modal-center {
-    width: 500px;
-    height: 500px;
-}
-
 .black {
     background-color: black;
     opacity: 0.5;
