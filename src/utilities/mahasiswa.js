@@ -46,7 +46,7 @@ function getResult(){
 
     
     result += "\n\n Total Belum: " + rawResult.length
-    result += "\n Total Sudah: " + (86 - rawResult.length)
+    result += "\n Total Sudah: " + (85 - rawResult.length)
 
     return result
 }
